@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package finale;
+
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Label;
@@ -38,20 +39,20 @@ public class Nurses extends javax.swing.JFrame implements ActionListener {
     Button PR_DB = new Button("Delete");
     Button FBack = new Button("Back");
     Button WorkB = new Button("Phones");
+    Button RB = new Button("Refresh");
     TextField N_EFNF = new TextField();
     TextField N_FNameF = new TextField();
     TextField N_LNameF = new TextField();
     TextField N_NIDF = new TextField();
     TextField N_SalaryF = new TextField();
     TextField D_EFN3F = new TextField();
-    Label label1 = new Label ("Electronic File No.");
-    Label label2 = new Label ("First Name");
-    Label label3 = new Label ("Last Name");
-    Label label4 = new Label ("National ID");
-    Label label5 = new Label ("Salary");
-    Label label6 = new Label ("Doctor's Electronic File No.");
-    
-    
+    Label label1 = new Label("Electronic File No.");
+    Label label2 = new Label("First Name");
+    Label label3 = new Label("Last Name");
+    Label label4 = new Label("National ID");
+    Label label5 = new Label("Salary");
+    Label label6 = new Label("Doctor's Electronic File No.");
+
     public Nurses() {
         setTitle("Nurses");
         initComponents();
@@ -63,56 +64,61 @@ public class Nurses extends javax.swing.JFrame implements ActionListener {
         PR_SB.addActionListener(this);
         FBack.addActionListener(this);
         WorkB.addActionListener(this);
+        RB.addActionListener(this);
         WorkB.setBackground(Color.GREEN);
         PR_IB.setBackground(Color.YELLOW);
         PR_UB.setBackground(Color.YELLOW);
         PR_DB.setBackground(Color.YELLOW);
         PR_SB.setBackground(Color.YELLOW);
+        RB.setBackground(Color.YELLOW);
         FBack.setBackground(Color.RED);
-        PR_IB.setBounds(700,415,73,29);
+        PR_IB.setBounds(700, 415, 73, 29);
         add(PR_IB);
-        PR_UB.setBounds(800,415,73,29);
+        PR_UB.setBounds(800, 415, 73, 29);
         add(PR_UB);
-        PR_DB.setBounds(700,450,73,29);
+        PR_DB.setBounds(700, 450, 73, 29);
         add(PR_DB);
-        PR_SB.setBounds(800,450,73,29);
+        PR_SB.setBounds(800, 450, 73, 29);
         add(PR_SB);
-        FBack.setBounds(900,450,73,29);
+        FBack.setBounds(900, 450, 73, 29);
         add(FBack);
         WorkB.setBounds(900, 415, 73, 29);
         add(WorkB);
+        RB.setBounds(800, 380, 73, 29);
+        add(RB);
 
         //End
         //Text Field
-        N_EFNF.setBounds(40,440,90,40);
+        N_EFNF.setBounds(40, 440, 90, 40);
         add(N_EFNF);
-        N_FNameF.setBounds(150,440,90,40);
+        N_FNameF.setBounds(150, 440, 90, 40);
         add(N_FNameF);
-        N_LNameF.setBounds(260,440,90,40);
+        N_LNameF.setBounds(260, 440, 90, 40);
         add(N_LNameF);
-        N_NIDF.setBounds(370,440,90,40);
+        N_NIDF.setBounds(370, 440, 90, 40);
         add(N_NIDF);
-        N_SalaryF.setBounds(480,440,90,40);
+        N_SalaryF.setBounds(480, 440, 90, 40);
         add(N_SalaryF);
-        D_EFN3F.setBounds(590,440,90,40);
+        D_EFN3F.setBounds(590, 440, 90, 40);
         add(D_EFN3F);
         //End
         //Label
-        label1.setBounds(30,410,120,40);
+        label1.setBounds(30, 410, 120, 40);
         add(label1);
-        label2.setBounds(150,410,90,40);
+        label2.setBounds(150, 410, 90, 40);
         add(label2);
-        label3.setBounds(260,410,90,40);
+        label3.setBounds(260, 410, 90, 40);
         add(label3);
-        label4.setBounds(370,410,120,40);
+        label4.setBounds(370, 410, 120, 40);
         add(label4);
-        label5.setBounds(500,410,50,40);
+        label5.setBounds(500, 410, 50, 40);
         add(label5);
-        label6.setBounds(560,410,130,40);
+        label6.setBounds(560, 410, 130, 40);
         add(label6);
         //END
     }
-    public void PRcontoSQL(){
+
+    public void PRcontoSQL() {
         PRmodel = new DefaultTableModel();
         PRmodel.addColumn("Electronic File Number");
         PRmodel.addColumn("First Name");
@@ -121,26 +127,23 @@ public class Nurses extends javax.swing.JFrame implements ActionListener {
         PRmodel.addColumn("Salary");
         PRmodel.addColumn("Doctor's Electronic File No.");
         PR_T.setModel(PRmodel);
-        
-        
+
         String path = "jdbc:sqlserver://localhost:1433;databaseName=bb;encrypt=true;trustServerCertificate=true;";
         String user = "jazz";
         String pass = "123";
-        
-        try{
-        PRcon = DriverManager.getConnection(path, user, pass);
-        PRstmt = PRcon.createStatement();
-        PRrs = PRstmt.executeQuery("select * from Nurses");
-        
-        while(PRrs.next()) {
-        PRmodel.addRow(new Object[]{PRrs.getInt("N_EFN"),PRrs.getString("N_FName"),PRrs.getString("N_LName"),PRrs.getInt("N_NID"),PRrs.getInt("N_Salary"),PRrs.getInt("D_EFN3")});
+
+        try {
+            PRcon = DriverManager.getConnection(path, user, pass);
+            PRstmt = PRcon.createStatement();
+            PRrs = PRstmt.executeQuery("select * from Nurses");
+
+            while (PRrs.next()) {
+                PRmodel.addRow(new Object[]{PRrs.getInt("N_EFN"), PRrs.getString("N_FName"), PRrs.getString("N_LName"), PRrs.getInt("N_NID"), PRrs.getInt("N_Salary"), PRrs.getInt("D_EFN3")});
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }
-        catch(SQLException e){
-                JOptionPane.showMessageDialog(this,e.getMessage());
-        }
-        
-        
+
     }
 
     /**
@@ -233,103 +236,96 @@ public class Nurses extends javax.swing.JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==FBack)
-        {
-        Home m = new Home();
-        m.show();
-        dispose();
+        if (e.getSource() == FBack) {
+            Home m = new Home();
+            m.show();
+            dispose();
         }
-        if(e.getSource()==PR_IB)
-        {
-        int N_EFN = Integer.parseInt(N_EFNF.getText());
-        String N_FName = N_FNameF.getText();
-        String N_LName = N_LNameF.getText();
-        int N_NID = Integer.parseInt(N_NIDF.getText());
-        int N_Salary = Integer.parseInt(N_SalaryF.getText());
-        int D_EFN3 = Integer.parseInt(D_EFN3F.getText());
-        
-        String IPRQuery = "insert into Nurses values(" +N_EFN+ ",'"+N_FName+"','"+N_LName+"',"+N_NID+","+N_Salary+","+D_EFN3+")";
-        
-        try{
-            PRstmt.executeUpdate(IPRQuery);
-        } 
-                catch(SQLException ea){
-                JOptionPane.showMessageDialog(this,ea.getMessage());
-        }
-                PRcontoSQL();
+        if (e.getSource() == PR_IB) {
+            int N_EFN = Integer.parseInt(N_EFNF.getText());
+            String N_FName = N_FNameF.getText();
+            String N_LName = N_LNameF.getText();
+            int N_NID = Integer.parseInt(N_NIDF.getText());
+            int N_Salary = Integer.parseInt(N_SalaryF.getText());
+            int D_EFN3 = Integer.parseInt(D_EFN3F.getText());
+
+            String IPRQuery = "insert into Nurses values(" + N_EFN + ",'" + N_FName + "','" + N_LName + "'," + N_NID + "," + N_Salary + "," + D_EFN3 + ")";
+
+            try {
+                PRstmt.executeUpdate(IPRQuery);
+            } catch (SQLException ea) {
+                JOptionPane.showMessageDialog(this, ea.getMessage());
+            }
+            PRcontoSQL();
 
         }
-        if(e.getSource()==PR_UB)
-        {
-        int N_EFN = Integer.parseInt(N_EFNF.getText());
-        String N_FName = N_FNameF.getText();
-        String N_LName = N_LNameF.getText();
-        int N_NID = Integer.parseInt(N_NIDF.getText());
-        int N_Salary = Integer.parseInt(N_SalaryF.getText());
-        int D_EFN3 = Integer.parseInt(D_EFN3F.getText());
-        
-        String UPRQuery = "update Nurses set N_FName ='"+N_FName+"', N_LName='" +N_LName+ "', N_NID=" +N_NID+ ", N_Salary=" +N_Salary+ ",D_EFN3=" +D_EFN3+ " where N_EFN = "+N_EFN;
-        
-        try{
-            PRstmt.executeUpdate(UPRQuery);
-        } 
-                catch(SQLException ea){
-                JOptionPane.showMessageDialog(this,ea.getMessage());
+        if (e.getSource() == PR_UB) {
+            int N_EFN = Integer.parseInt(N_EFNF.getText());
+            String N_FName = N_FNameF.getText();
+            String N_LName = N_LNameF.getText();
+            int N_NID = Integer.parseInt(N_NIDF.getText());
+            int N_Salary = Integer.parseInt(N_SalaryF.getText());
+            int D_EFN3 = Integer.parseInt(D_EFN3F.getText());
+
+            String UPRQuery = "update Nurses set N_FName ='" + N_FName + "', N_LName='" + N_LName + "', N_NID=" + N_NID + ", N_Salary=" + N_Salary + ",D_EFN3=" + D_EFN3 + " where N_EFN = " + N_EFN;
+
+            try {
+                PRstmt.executeUpdate(UPRQuery);
+            } catch (SQLException ea) {
+                JOptionPane.showMessageDialog(this, ea.getMessage());
+            }
+            PRcontoSQL();
         }
-                PRcontoSQL();
-        }
-        if(e.getSource()==PR_DB)
-        {
-        int N_EFN = Integer.parseInt(N_EFNF.getText());        
-        String DPRQuery = "delete from N_Phone where N_EFN1 = "+N_EFN;
-        String DPRQuery2 = "update Donors set N_EFN2=NULL where N_EFN2 ="+N_EFN;
-        String DPRQuery3 = "delete from Nurses where N_EFN = "+N_EFN;
-        try{
-            PRstmt.executeUpdate(DPRQuery);
-            PRstmt.executeUpdate(DPRQuery2);
-            PRstmt.executeUpdate(DPRQuery3);
-        } 
-                catch(SQLException ea){
-                JOptionPane.showMessageDialog(this,ea.getMessage());
-        }
-                PRcontoSQL();
-        }
-        if(e.getSource()==WorkB)
-        {
-        N_Phone m = new N_Phone();
-        m.show();
-        dispose();
+        if (e.getSource() == RB) {
+            PRcontoSQL();
         }
 
-        if(e.getSource()==PR_SB)
-        {
-        PRmodel = new DefaultTableModel();
-        PRmodel.addColumn("Electronic File Number");
-        PRmodel.addColumn("First Name");
-        PRmodel.addColumn("Last Name");
-        PRmodel.addColumn("National ID");
-        PRmodel.addColumn("Salary");
-        PRmodel.addColumn("Doctor's Electronic File No.");
-        PR_T.setModel(PRmodel);
-        
-        
-        String path = "jdbc:sqlserver://localhost:1433;databaseName=bb;encrypt=true;trustServerCertificate=true;";
-        String user = "jazz";
-        String pass = "123";
-        
-        try{
-        int N_EFN = Integer.parseInt(N_EFNF.getText());
-        PRcon = DriverManager.getConnection(path, user, pass);
-        PRstmt = PRcon.createStatement();
-        PRrs = PRstmt.executeQuery("select * from Nurses where N_EFN = "+N_EFN);
-        
-        while(PRrs.next()) {
-        PRmodel.addRow(new Object[]{PRrs.getInt("N_EFN"),PRrs.getString("N_FName"),PRrs.getString("N_LName"),PRrs.getInt("N_NID"),PRrs.getInt("N_Salary"),PRrs.getInt("D_EFN3")});
+        if (e.getSource() == PR_DB) {
+            int N_EFN = Integer.parseInt(N_EFNF.getText());
+            String DPRQuery = "delete from N_Phone where N_EFN1 = " + N_EFN;
+            String DPRQuery2 = "update Donors set N_EFN2=NULL where N_EFN2 =" + N_EFN;
+            String DPRQuery3 = "delete from Nurses where N_EFN = " + N_EFN;
+            try {
+                PRstmt.executeUpdate(DPRQuery);
+                PRstmt.executeUpdate(DPRQuery2);
+                PRstmt.executeUpdate(DPRQuery3);
+            } catch (SQLException ea) {
+                JOptionPane.showMessageDialog(this, ea.getMessage());
+            }
+            PRcontoSQL();
         }
-    }
-        catch(SQLException ae){
-                JOptionPane.showMessageDialog(this,ae.getMessage());
+        if (e.getSource() == WorkB) {
+            N_Phone m = new N_Phone();
+            m.show();
+            dispose();
         }
+
+        if (e.getSource() == PR_SB) {
+            PRmodel = new DefaultTableModel();
+            PRmodel.addColumn("Electronic File Number");
+            PRmodel.addColumn("First Name");
+            PRmodel.addColumn("Last Name");
+            PRmodel.addColumn("National ID");
+            PRmodel.addColumn("Salary");
+            PRmodel.addColumn("Doctor's Electronic File No.");
+            PR_T.setModel(PRmodel);
+
+            String path = "jdbc:sqlserver://localhost:1433;databaseName=bb;encrypt=true;trustServerCertificate=true;";
+            String user = "jazz";
+            String pass = "123";
+
+            try {
+                int N_EFN = Integer.parseInt(N_EFNF.getText());
+                PRcon = DriverManager.getConnection(path, user, pass);
+                PRstmt = PRcon.createStatement();
+                PRrs = PRstmt.executeQuery("select * from Nurses where N_EFN = " + N_EFN);
+
+                while (PRrs.next()) {
+                    PRmodel.addRow(new Object[]{PRrs.getInt("N_EFN"), PRrs.getString("N_FName"), PRrs.getString("N_LName"), PRrs.getInt("N_NID"), PRrs.getInt("N_Salary"), PRrs.getInt("D_EFN3")});
+                }
+            } catch (SQLException ae) {
+                JOptionPane.showMessageDialog(this, ae.getMessage());
+            }
         }
 
     }

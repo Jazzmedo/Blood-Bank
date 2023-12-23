@@ -36,6 +36,7 @@ public class N_Phone extends javax.swing.JFrame implements ActionListener {
     Button SP_UB = new Button("Back");
     Button SP_SB = new Button("Search");
     Button SP_DB = new Button("Delete");
+    Button RB = new Button("Refresh");
     TextField N_PhoneF = new TextField();
     TextField N_EFN1F = new TextField();
     Label label1 = new Label("Phone");
@@ -50,13 +51,17 @@ public class N_Phone extends javax.swing.JFrame implements ActionListener {
         SP_UB.addActionListener(this);
         SP_DB.addActionListener(this);
         SP_SB.addActionListener(this);
+        RB.addActionListener(this);
+        RB.setBackground(Color.YELLOW);
         SP_IB.setBackground(Color.YELLOW);
         SP_UB.setBackground(Color.RED);
         SP_DB.setBackground(Color.YELLOW);
         SP_SB.setBackground(Color.YELLOW);
+        RB.setBounds(800, 415, 73, 29);
+        add(RB);
         SP_IB.setBounds(700, 415, 73, 29);
         add(SP_IB);
-        SP_UB.setBounds(800, 415, 73, 29);
+        SP_UB.setBounds(900, 415, 73, 29);
         add(SP_UB);
         SP_DB.setBounds(700, 450, 73, 29);
         add(SP_DB);
@@ -220,6 +225,10 @@ public class N_Phone extends javax.swing.JFrame implements ActionListener {
             }
             SPcontoSQL();
         }
+        if (e.getSource() == RB) {
+            SPcontoSQL();
+        }
+
         if (e.getSource() == SP_SB) {
         String N_Phone = N_PhoneF.getText();
         SPmodel = new DefaultTableModel();

@@ -38,6 +38,7 @@ public class Donors extends javax.swing.JFrame implements ActionListener {
     Button PF_DB = new Button("Delete");
     Button FBack = new Button("Back");
     Button PhonesB = new Button("Phones");
+    Button RB = new Button("Refresh");
     TextField DO_NNF = new TextField();
     TextField DO_FNameF = new TextField();
     TextField DO_LNameF = new TextField();
@@ -66,10 +67,12 @@ public class Donors extends javax.swing.JFrame implements ActionListener {
         PF_SB.addActionListener(this);
         FBack.addActionListener(this);
         PhonesB.addActionListener(this);
+        RB.addActionListener(this);
         PF_IB.setBackground(Color.YELLOW);
         PF_UB.setBackground(Color.YELLOW);
         PF_DB.setBackground(Color.YELLOW);
         PF_SB.setBackground(Color.YELLOW);
+        RB.setBackground(Color.YELLOW);
         PhonesB.setBackground(Color.GREEN);
         FBack.setBackground(Color.RED);
         PF_IB.setBounds(700, 415, 73, 29);
@@ -84,6 +87,8 @@ public class Donors extends javax.swing.JFrame implements ActionListener {
         add(FBack);
         PhonesB.setBounds(900, 415, 73, 29);
         add(PhonesB);
+        RB.setBounds(800, 380, 73, 29);
+        add(RB);
         //End
         //Text Field
         DO_NNF.setBounds(40, 440, 90, 40);
@@ -299,6 +304,9 @@ public class Donors extends javax.swing.JFrame implements ActionListener {
             } catch (SQLException ea) {
                 JOptionPane.showMessageDialog(this, ea.getMessage());
             }
+            PFcontoSQL();
+        }
+        if (e.getSource() == RB) {
             PFcontoSQL();
         }
         if (e.getSource() == PF_SB) {

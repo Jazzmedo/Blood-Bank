@@ -38,6 +38,7 @@ public class Doctors extends javax.swing.JFrame implements ActionListener {
     Button G_DB = new Button("Delete");
     Button D_Phone = new Button("Phones");
     Button FBack = new Button("Back");
+    Button RB = new Button("Refresh");
     Button Q = new Button("Qualifications");
     TextField D_EFNF = new TextField();
     TextField D_FNameF = new TextField();
@@ -62,9 +63,11 @@ public class Doctors extends javax.swing.JFrame implements ActionListener {
         D_Phone.addActionListener(this);
         FBack.addActionListener(this);
         Q.addActionListener(this);
+        RB.addActionListener(this);
         G_IB.setBackground(Color.YELLOW);
         G_UB.setBackground(Color.YELLOW);
         G_DB.setBackground(Color.YELLOW);
+        RB.setBackground(Color.YELLOW);
         G_SB.setBackground(Color.YELLOW);
         D_Phone.setBackground(Color.GREEN);
         FBack.setBackground(Color.RED);
@@ -81,6 +84,8 @@ public class Doctors extends javax.swing.JFrame implements ActionListener {
         add(FBack);
         D_Phone.setBounds(900, 415, 73, 29);
         add(D_Phone);
+        RB.setBounds(800, 380, 73, 29);
+        add(RB);
         Q.setBounds(890, 380, 83, 29);
         add(Q);
 
@@ -241,6 +246,9 @@ public class Doctors extends javax.swing.JFrame implements ActionListener {
             dispose();
             D_Q S = new D_Q();
             S.show();
+        }
+        if (e.getSource() == RB) {
+            GcontoSQL();
         }
 
         if (e.getSource() == G_IB) {

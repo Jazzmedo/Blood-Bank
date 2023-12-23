@@ -266,7 +266,7 @@ public class Doctors extends javax.swing.JFrame implements ActionListener {
             int D_NID = Integer.parseInt(D_NIDF.getText());
             int D_Salary = Integer.parseInt(D_SalaryF.getText());
 
-            String UGQuery = "update Doctors set D_FName ='" + D_FName + "', D_LName='" + D_LName + "', D_NID=" + D_NID + ", S_Email=" + D_Salary + " where D_EFN =" + D_EFN;
+            String UGQuery = "update Doctors set D_FName ='" + D_FName + "', D_LName='" + D_LName + "', D_NID=" + D_NID + ", D_Salary=" + D_Salary + " where D_EFN =" + D_EFN;
 
             try {
                 Gstmt.executeUpdate(UGQuery);

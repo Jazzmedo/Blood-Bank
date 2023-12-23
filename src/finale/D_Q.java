@@ -208,8 +208,7 @@ public class D_Q extends javax.swing.JFrame implements ActionListener {
         }
         if (e.getSource() == S_DB) {
             String D_Qual = D_QualF.getText();
-            int D_EFN2 = Integer.parseInt(D_EFN2F.getText());
-            String DSQuery = "delete from D_Q where D_Qual = '" + D_Qual+"' AND D_EFN2 = "+D_EFN2;
+            String DSQuery = "delete from D_Q where D_Qual = '" + D_Qual + "'";
 
             try {
                 Sstmt.executeUpdate(DSQuery);
@@ -219,27 +218,27 @@ public class D_Q extends javax.swing.JFrame implements ActionListener {
             GcontoSQL();
         }
         if (e.getSource() == S_SB) {
-        Smodel = new DefaultTableModel();
-        Smodel.addColumn("Qualification");
-        Smodel.addColumn("Electronic File Number");
-        S_T.setModel(Smodel);
+            Smodel = new DefaultTableModel();
+            Smodel.addColumn("Qualification");
+            Smodel.addColumn("Electronic File Number");
+            S_T.setModel(Smodel);
 
-        String path = "jdbc:sqlserver://localhost:1433;databaseName=bb;encrypt=true;trustServerCertificate=true;";
-        String user = "jazz";
-        String pass = "123";
+            String path = "jdbc:sqlserver://localhost:1433;databaseName=bb;encrypt=true;trustServerCertificate=true;";
+            String user = "jazz";
+            String pass = "123";
 
-        try {
-            int D_EFN2 = Integer.parseInt(D_EFN2F.getText());
-            Scon = DriverManager.getConnection(path, user, pass);
-            Sstmt = Scon.createStatement();
-            Srs = Sstmt.executeQuery("select * from D_Q where D_EFN2 = "+D_EFN2);
+            try {
+                String D_Qual = D_QualF.getText();
+                Scon = DriverManager.getConnection(path, user, pass);
+                Sstmt = Scon.createStatement();
+                Srs = Sstmt.executeQuery("select * from D_Q where D_Qual = '"+D_Qual+"'");
 
-            while (Srs.next()) {
-                Smodel.addRow(new Object[]{Srs.getString("D_Qual"), Srs.getInt("D_EFN2")});
+                while (Srs.next()) {
+                    Smodel.addRow(new Object[]{Srs.getString("D_Qual"), Srs.getInt("D_EFN2")});
+                }
+            } catch (SQLException ae) {
+                JOptionPane.showMessageDialog(this, ae.getMessage());
             }
-        } catch (SQLException ae) {
-            JOptionPane.showMessageDialog(this, ae.getMessage());
-        }
 
         }
 

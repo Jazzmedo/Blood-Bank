@@ -56,7 +56,7 @@ public class Donors extends javax.swing.JFrame implements ActionListener {
     Label label8 = new Label("Nurse E. File No.");
 
     public Donors() {
-        setTitle("Professors");
+        setTitle("Donors");
         initComponents();
         PFcontoSQL();
         //  B u t t o n s 
